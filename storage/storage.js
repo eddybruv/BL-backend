@@ -12,7 +12,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: "BL Backend Users",
+    folder: "bl-users",
     allowedFormats: ["jpeg", "png", "jpg"],
   },
 });
