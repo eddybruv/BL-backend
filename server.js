@@ -1,8 +1,16 @@
 const express = require("express");
 const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsDoc = require("swagger-jsdoc");
+const options = require("./docs/options");
+const specs = swaggerJsDoc(options);
+
+// api routes
 const AuthRoute = require("./routes/auth.route");
 const ImageRoute = require("./routes/image.route");
-const connectDB = require("./config/db");
+const CategoryRoute = require("./routes/category.route");
+
+const { connectDB } = require("./config/db");
 
 require("dotenv").config();
 
@@ -14,7 +22,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use("/api/auth", AuthRoute);
-// app.use("/api/image")
+app.use("/api/image", ImageRoute);
+app.use("/api/category", CategoryRoute);
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+app.get("/swagger.json", function (req, res) {
+  res.setHeader("Content-Type", "application/json");
+  res.send(specs);
+});
 
 connectDB;
 app.listen(PORT, () => {
