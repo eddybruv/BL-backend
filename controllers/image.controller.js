@@ -1,12 +1,16 @@
-const { storage } = require("../storage/storage");
-const multer = require("multer");
-const upload = multer({ storage });
-
-const uploader =
-  (upload.single("image"),
-  (req, res) => {
-    console.log(req.file);
-    res.send("Done");
-  });
+const uploader = async (req, res) => {
+  if (!req.file) {
+    console.log("No file received");
+    return res.send({
+      success: false,
+    });
+  } else {
+    console.log("file received");
+    return res.send({
+      success: true,
+      data: req.file,
+    });
+  }
+};
 
 module.exports = { uploader };
