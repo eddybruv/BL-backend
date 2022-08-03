@@ -8,4 +8,4 @@ const connectDB = mongoose
   })
   .catch(() => console.log("🥲[Database]: Not connected"));
 
-module.exports = connectDB;
+module.exports = {connectDB};
