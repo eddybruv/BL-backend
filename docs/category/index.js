@@ -55,6 +55,32 @@
 
 /**
  * @swagger
+ * /api/category/get{id}:
+ *  get:
+ *    tags:
+ *      - Category
+ *    name: Get
+ *    summary: get category by id
+ *    consumes:
+ *    parameters:
+ *      - name: Authorization
+ *        in: header
+ *        required: true
+ *        type: string
+ *        example: Bearer token-string
+ *      - name: id
+ *        in: path
+ *        require: true
+ *        type: string
+ *    responses:
+ *      200:
+ *        description: got category
+ *      400: 
+ *        description: category not found
+ */
+
+/**
+ * @swagger
  * /api/category/update/{id}:
  *  put:
  *    tags:
@@ -114,4 +140,3 @@
  *      200:
  *        description: deleted category
  */
-
