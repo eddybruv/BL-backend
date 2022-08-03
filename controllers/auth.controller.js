@@ -37,7 +37,7 @@ const signUp = async (req, res) => {
   const { email, password, username, name } = req.body;
   const userExist = await userModel.findOne({ email });
   if (userExist) {
-    return res.status(400).json({ message: "user already exists" });
+    return res.status(401).json({ message: "user already exists" });
   }
   const newUser = await createUser(name, email, password, username, imagePath);
 
@@ -54,29 +54,35 @@ const login = async (req, res) => {
   const user = await userModel.findOne({ email });
 
   if (!user) {
-    return res.json({ message: "user not found" }).status(400);
+    return res.status(400).json({ message: "user not found" });
   }
 
-  if (compare(password, user.password)) {
+  if (await compare(password, user.password)) {
     let token = generateToken(user._id);
-    return res.json({ data: user, token }).status(200);
+    const updateUser = await userModel.findByIdAndUpdate({_id: user._id}, {isActive: true, otp: await generateOTP()})
+    return res.json({ data: updateUser, token }).status(200);
   } else {
-    return res.json({ message: "credentials don't match" }).status(400);
+    return res.status(401).json({ message: "credentials don't match" });
   }
 };
 
 const logout = async (req, res) => {
   const _id = req.userId;
+  const {otp} = req.body;
   const user = await userModel.findById({ _id });
 
   if (!user) {
     res.status(400).json({ message: "user not found" });
   } else {
-    const updatedUser = await userModel.findByIdAndUpdate(
-      { _id },
-      { isActive: false, otp: null }
-    );
-    res.status(200).json({ message: "signed out" });
+    if (user.otp === otp) {
+      const updatedUser = await userModel.findByIdAndUpdate(
+        { _id },
+        { isActive: false, otp: null }
+      );
+      res.status(200).json({ message: "signed out" });
+    } else {
+      return res.status(401).json({message: "otp doesn't match"})
+    }
   }
 };
 
