@@ -55,7 +55,7 @@
 
 /**
  * @swagger
- * /api/category/get{id}:
+ * /api/category/get/{id}:
  *  get:
  *    tags:
  *      - Category
