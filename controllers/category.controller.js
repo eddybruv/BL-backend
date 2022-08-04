@@ -27,12 +27,12 @@ const getCategory = async (req, res) => {
 };
 
 const getCategoryById = async (req, res) => {
-  const _id = req.param.id;
+  const _id = req.params.id;
   const data = await categoryModel
     .find({ _id })
     .populate({ path: "userId", select: "email name username -_id" });
 
-  if (data) {
+  if (data.length > 0) {
     return res.status(200).json({ data });
   } else {
     res.status(400).json({ message: "category not found" });
