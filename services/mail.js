@@ -24,10 +24,10 @@ const sendMail = async (params) => {
         class="container"
         style="max-width: 90%; margin: auto; padding-top: 20px"
       >
-        <h2>Bridge Labs.</h2>
-        <h4>Welcome To The Team ✔</h4>
+        <h2>BL.</h2>
+        <h4>Welcome To BL✔</h4>
         <p style="margin-bottom: 30px;">Your OTP to get started🎉</p>
-        <h1 style="font-size: 24px; letter-spacing: 2px; text-align:center;">${params.OTP}</h1>
+        <h1 style="font-size: 20px; letter-spacing: 2px;">${params.OTP}</h1>
         <p style="margin-top:50px;">If you did not request for verification please ignore the mail.</p>
       </div>
     `,
