@@ -84,6 +84,38 @@
 
 /**
  * @swagger
+ * /api/auth/verify:
+ *    post:
+ *      tags:
+ *        - Users
+ *      name: verify user
+ *      summary: verify yser
+ *      consumes:
+ *        - application/json
+ *      parameters:
+ *        - name: body
+ *          in: body
+ *          schema:
+ *            type: object
+ *            properties:
+ *              email:
+ *                type: string
+ *              otp:
+ *                type: string
+ *          required:
+ *            - email
+ *            - otp
+ *      responses:
+ *        200:
+ *          description: verified
+ *        401:
+ *          description: credentials don't match
+ *        400:
+ *          description: user not found
+ */
+
+/**
+ * @swagger
  * /api/auth/logout:
  *  post:
  *    tags:
