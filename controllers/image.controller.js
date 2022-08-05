@@ -1,14 +1,19 @@
 const uploader = async (req, res) => {
-  if (!req.file) {
+  if (!req.files) {
     console.log("No file received");
-    return res.send({
+    return res.json({
       success: false,
+      message: "no files uploaded",
     });
   } else {
-    console.log("file received");
+    console.log("files received");
+    let urls = [];
+    for (let file of req.files) {
+      urls.push({ name: file.originalname, url: file.path });
+    }
     return res.send({
       success: true,
-      data: req.file,
+      data: urls,
     });
   }
 };
