@@ -16,7 +16,7 @@ const encrypt = async (password) => {
 };
 
 const compare = async (password, encryptedPwd) => {
-  if ((!password, encryptedPwd)) return false;
+  if ((!password || !encryptedPwd)) return false;
   const value = await bcrypt.compare(password, encryptedPwd);
   return value;
 };
