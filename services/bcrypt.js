@@ -4,7 +4,7 @@ const saltRounds = 12;
 const encrypt = async (password) => {
   try {
     if (password === undefined) {
-      console.log("not defined")
+      console.log("not defined");
       return false;
     }
     const salt = await bcrypt.genSalt(saltRounds);
@@ -16,6 +16,7 @@ const encrypt = async (password) => {
 };
 
 const compare = async (password, encryptedPwd) => {
+  if ((!password, encryptedPwd)) return false;
   const value = await bcrypt.compare(password, encryptedPwd);
   return value;
 };
