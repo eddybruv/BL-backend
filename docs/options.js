@@ -8,12 +8,22 @@ const swaggerDefinition = {
       url: "https://opensource.org/licenses/MIT",
     },
   },
+  servers: [
+    {
+      url: "https://bl-api-task.herokuapp.com/",
+      description: "live(deployed) server",
+    },
+    {
+      url: "http://localhost:5000/api-docs",
+      description: "local(development) server",
+    },
+  ],
   swagger: "2.0",
   contact: {
     name: "Edwin Bimela Ajong",
     email: "edwinajong@gmail.com",
   },
-  host: "localhost:5000",
+  host: ["localhost:5000"],
   basePath: "/",
   schemes: ["http"],
   consumes: [
@@ -37,6 +47,5 @@ const options = {
   swaggerDefinition,
   apis: ["./docs/*/*.js"],
 };
-
 
 module.exports = options;
